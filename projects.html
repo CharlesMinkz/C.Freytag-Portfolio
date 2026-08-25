@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carlotta Freytag — All Projects</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="project-modal.css" rel="stylesheet"/>
+<style>
+  :root{
+    --bg: #F5F2EA;
+    --bg-alt: #EDE8DC;
+    --ink: #14171B;
+    --ink-soft: #565B54;
+    --line: rgba(20,23,27,0.12);
+    --moss: #3D5A45;
+    --moss-deep: #24382B;
+    --ochre: #C9A26B;
+    --wrap: 1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 40px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-soft); display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(245,242,234,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .logo{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px;}
+  .nav-links{display:flex; gap:36px; font-size:14.5px; color:var(--ink-soft);}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a.current{color:var(--ink);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--moss); transition:width .25s ease;}
+  .nav-links a:hover::after, .nav-links a.current::after{width:100%;}
+  .badge{
+    display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    border:1px solid var(--line); border-radius:999px; padding:7px 14px; transition:border-color .2s, background .2s;
+  }
+  .badge:hover{border-color:var(--moss); background:rgba(61,90,69,0.06);}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--moss); position:relative;}
+  .dot::after{content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--moss); animation:pulse 2.4s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(0.6); opacity:0.9;} 100%{transform:scale(2.1); opacity:0;}}
+
+  .page-head{padding:64px 0 40px;}
+  .page-head .eyebrow{margin-bottom:20px; max-width:220px;}
+  .page-head h1{font-size:clamp(30px,4vw,46px); font-weight:600;}
+  .page-head p{color:var(--ink-soft); font-size:15px; margin-top:14px; max-width:520px;}
+
+  .filters{
+    display:flex; flex-wrap:wrap; gap:10px; padding:28px 0 40px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-bottom:44px;
+  }
+  .filter-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.03em;
+    padding:8px 16px; border:1px solid var(--line); border-radius:999px; cursor:pointer;
+    color:var(--ink-soft); background:transparent; transition:all .2s;
+  }
+  .filter-chip:hover{border-color:var(--moss); color:var(--ink);}
+  .filter-chip.active{background:var(--moss-deep); border-color:var(--moss-deep); color:#fff;}
+  .results-count{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); margin-bottom:24px;}
+
+  .work-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px 40px; margin-bottom:100px;}
+  .work-card{background:var(--bg); padding:0; display:block; cursor:pointer; transition:opacity .25s, transform .25s;}
+  .work-card:hover h3{color:var(--moss-deep);}
+  .work-card.hidden{display:none;}
+  .work-media{aspect-ratio:4/3; position:relative; overflow:hidden; background:var(--moss-deep);}
+  .work-media span{position:absolute; left:20px; bottom:18px; font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(255,255,255,0.4); letter-spacing:0.02em;}
+  /* Shows a real image (tileImage in projects-data.js) instead of the flat
+     gradient color block on a project card — see index.html
+     for the fuller explanation of this pattern. */
+  .work-media.has-image{background:#000;}
+  .work-media.has-image img{width:100%; height:100%; object-fit:contain; display:block;}
+  .g2 .work-media{background:#1c262c;}
+  .g3 .work-media{background:#1c2420;}
+  .g4 .work-media{background:#2c1c1c;}
+  .g5 .work-media{background:#28261a;}
+  .g6 .work-media{background:#151f26;}
+  .g7 .work-media{background:#2c1c24;}
+  .g8 .work-media{background:#2c2015;}
+  .work-body{padding:22px 0 0;}
+  .work-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .work-body h3{font-size:22px; font-weight:600; transition:color .2s;}
+  .work-year{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);}
+  .tags-plain{font-family:'IBM Plex Mono', monospace; font-size:13px; margin-bottom:12px;}
+  .tag-plain{background:none; border:none; padding:0; color:var(--ochre); cursor:pointer; font:inherit;}
+  .tag-plain:hover{color:var(--moss-deep); text-decoration:underline;}
+  .tag-sep{color:var(--ochre); opacity:0.6;}
+  .work-body p{font-size:14.5px; color:var(--ink-soft); max-width:420px;}
+
+  .empty-state{display:none; padding:60px 0 100px; text-align:center; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; font-size:13px;}
+  .empty-state.show{display:block;}
+
+  @media(max-width:900px){
+    .work-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+<header>
+<nav class="wrap">
+<a class="logo" href="index.html">Carlotta Freytag</a>
+<div class="nav-links">
+<a class="current" href="projects.html">Work</a>
+<a href="index.html#skills">Skills</a>
+<a href="index.html#about">About</a>
+<a href="index.html#contact">Contact</a>
+</div>
+<a class="badge" href="mailto:charfreytag@gmail.com?subject=Let%27s%20work%20together"><span class="dot"></span> Available for work</a>
+</nav>
+</header>
+<div class="wrap">
+<div class="page-head">
+<div class="eyebrow">All Projects</div>
+<h1>Everything I've worked on.</h1>
+<p>Filter by skill or discipline to see the projects where I put it to use.</p>
+</div>
+<div class="filters" id="filters">
+<button class="filter-chip active" data-tag="all">All</button>
+<!-- tag chips injected by script -->
+</div>
+<div class="results-count" id="resultsCount">8 projects</div>
+<div class="work-grid" id="workGrid">
+<div aria-haspopup="dialog" class="work-card" data-project="mpact-5" data-tags="UX Design,AI Integration,Civic Tech" role="button" tabindex="0">
+<div class="work-media has-image"><img src="images/mpact5-title.jpg" alt="MPact 5 title screen"></div>
+<div class="work-body">
+<div class="work-top"><h3>MPact 5 — Berlin Impact Hub</h3><span class="work-year">2025</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('UX Design')">UX Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('AI Integration')">AI Integration</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Civic Tech')">Civic Tech</button></div>
+<p>An AI-assisted civic platform that turns city needs into personalized, reward-based micro-tasks for citizens.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g2" data-project="pathcompanion" data-tags="AR/XR,Interaction Design,Product Design" role="button" tabindex="0">
+<div class="work-media has-image"><img src="images/pathcompanion-ar-final.jpg" alt="PathCompanion AR guidance overlay"></div>
+<div class="work-body">
+<div class="work-top"><h3>PathCompanion — AR Navigation for Children</h3><span class="work-year">2025</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('AR/XR')">AR/XR</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Interaction Design')">Interaction Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Product Design')">Product Design</button></div>
+<p>An AR navigation system on smart glasses that helps children travel independently, safely, and playfully.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g3" data-project="career-hub" data-tags="Interaction Design,Project Management,Physical-Digital" role="button" tabindex="0">
+<div class="work-media"><span>The Career Hub</span></div>
+<div class="work-body">
+<div class="work-top"><h3>The Career Hub</h3><span class="work-year">2025</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Interaction Design')">Interaction Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Project Management')">Project Management</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Physical-Digital')">Physical-Digital</button></div>
+<p>A physical touch-desk that bridges student portfolios, market realities, and legal frameworks through a live knowledge graph.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g4" data-project="sustainyou" data-tags="UX Design,AI Integration,Sustainability" role="button" tabindex="0">
+<div class="work-media"><span>SustainYOU</span></div>
+<div class="work-body">
+<div class="work-top"><h3>SustainYOU — Ecowise Living</h3><span class="work-year">2024</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('UX Design')">UX Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('AI Integration')">AI Integration</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Sustainability')">Sustainability</button></div>
+<p>An AI-assisted sustainability campaign that helps people set, track, and achieve personalized environmental goals.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g5" data-project="ladelerntool" data-tags="E-Learning,Product Design,HCI" role="button" tabindex="0">
+<div class="work-media"><span>LadeLernTool</span></div>
+<div class="work-body">
+<div class="work-top"><h3>LadeLernTool — E-Learning for EV Infrastructure</h3><span class="work-year">2024 — Now</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('E-Learning')">E-Learning</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Product Design')">Product Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('HCI')">HCI</button></div>
+<p>An interactive learning platform teaching users how to understand and use electric vehicle charging infrastructure.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g6" data-project="the-cut-club" data-tags="UX Design,AI Integration,Service Design" role="button" tabindex="0">
+<div class="work-media"><span>The CUT CLUB</span></div>
+<div class="work-body">
+<div class="work-top"><h3>The CUT CLUB</h3><span class="work-year">2024</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('UX Design')">UX Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('AI Integration')">AI Integration</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Service Design')">Service Design</button></div>
+<p>A booking and client-management platform for hairstylists, grounded in in-depth user interviews.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g7" data-project="kikos-journey" data-tags="Game Design,Illustration,Interaction Design" role="button" tabindex="0">
+<div class="work-media"><span>Kiko's Journey</span></div>
+<div class="work-body">
+<div class="work-top"><h3>Kiko's Journey</h3><span class="work-year">2023</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Game Design')">Game Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Illustration')">Illustration</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Interaction Design')">Interaction Design</button></div>
+<p>A hand-drawn game teaching self-reflection through playful, research-driven level design.</p>
+</div>
+</div>
+<div aria-haspopup="dialog" class="work-card g8" data-project="eco-design" data-tags="Sustainability,Visual Design,HCI" role="button" tabindex="0">
+<div class="work-media"><span>Eco-Design</span></div>
+<div class="work-body">
+<div class="work-top"><h3>Eco-Design</h3><span class="work-year">2022</span></div>
+<div class="tags-plain"><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Sustainability')">Sustainability</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('Visual Design')">Visual Design</button><span class="tag-sep"> · </span><button class="tag-plain" onclick="event.stopPropagation(); selectTagFilter('HCI')">HCI</button></div>
+<p>A smartphone interface that turns everyday app usage into visible, understandable CO₂ impact.</p>
+</div>
+</div>
+</div>
+<div class="empty-state" id="emptyState">No projects match this filter yet.</div>
+</div>
+<div class="modal-overlay" id="modalOverlay">
+<div aria-labelledby="modalTitle" aria-modal="true" class="modal" id="modalPanel" role="dialog">
+<button aria-label="Close project details" class="modal-close" id="modalClose">✕</button>
+<div class="modal-gallery" id="modalGallery"></div>
+<div class="modal-body" id="modalBody"></div>
+</div>
+</div>
+<script>
+  const cards = Array.from(document.querySelectorAll('.work-card'));
+  const filtersEl = document.getElementById('filters');
+  const resultsCount = document.getElementById('resultsCount');
+  const emptyState = document.getElementById('emptyState');
+
+  // Build unique, ordered tag list from the cards themselves
+  const allTags = [];
+  cards.forEach(c=>{
+    c.dataset.tags.split(',').forEach(t=>{
+      if(!allTags.includes(t)) allTags.push(t);
+    });
+  });
+  allTags.forEach(tag=>{
+    const btn = document.createElement('button');
+    btn.className = 'filter-chip';
+    btn.dataset.tag = tag;
+    btn.textContent = tag;
+    filtersEl.appendChild(btn);
+  });
+
+  function applyFilter(tag){
+    let visible = 0;
+    cards.forEach(c=>{
+      const tags = c.dataset.tags.split(',');
+      const show = tag === 'all' || tags.includes(tag);
+      c.classList.toggle('hidden', !show);
+      if(show) visible++;
+    });
+    resultsCount.textContent = `${visible} project${visible !== 1 ? 's' : ''}`;
+    emptyState.classList.toggle('show', visible === 0);
+
+    document.querySelectorAll('.filter-chip').forEach(chip=>{
+      chip.classList.toggle('active', chip.dataset.tag === tag);
+    });
+  }
+
+  function updateUrlForTag(tag){
+    const url = new URL(window.location);
+    if(tag === 'all'){ url.searchParams.delete('tag'); }
+    else{ url.searchParams.set('tag', tag); }
+    history.replaceState(null, '', url);
+  }
+
+  // Lets a tag pill inside a project card apply the same filter as the chip row above.
+  function selectTagFilter(tag){
+    applyFilter(tag);
+    updateUrlForTag(tag);
+    document.getElementById('filters').scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  filtersEl.addEventListener('click', (e)=>{
+    const chip = e.target.closest('.filter-chip');
+    if(!chip) return;
+    applyFilter(chip.dataset.tag);
+    updateUrlForTag(chip.dataset.tag);
+  });
+
+  // Read ?tag= from URL on load
+  const params = new URLSearchParams(window.location.search);
+  const initialTag = params.get('tag');
+  const matched = initialTag && allTags.includes(initialTag);
+  applyFilter(matched ? initialTag : 'all');
+</script>
+<script src="projects-data.js"></script>
+<script src="project-modal.js"></script>
+</body>
+</html>

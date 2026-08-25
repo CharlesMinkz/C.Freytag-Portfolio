@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlotta Freytag — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="project-modal.css">
+<style>
+  :root{
+    --bg: #F5F2EA;
+    --bg-alt: #EDE8DC;
+    --ink: #14171B;
+    --ink-soft: #565B54;
+    --line: rgba(20,23,27,0.12);
+    --moss: #3D5A45;
+    --moss-deep: #24382B;
+    --ochre: #C9A26B;
+    --card: #FFFFFF;
+    --radius: 2px;
+    --wrap: 1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 40px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
+  a{color:inherit; text-decoration:none;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,242,234,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .logo{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px;}
+  .nav-links{display:flex; gap:36px; font-size:14.5px; color:var(--ink-soft);}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--moss); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .badge{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    border:1px solid var(--line); border-radius:999px;
+    padding:7px 14px; transition:border-color .2s, background .2s;
+  }
+  .badge:hover{border-color:var(--moss); background:rgba(61,90,69,0.06);}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--moss); position:relative;}
+  .dot::after{
+    content:""; position:absolute; inset:-4px; border-radius:50%;
+    border:1px solid var(--moss); animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{transform:scale(0.6); opacity:0.9;}
+    100%{transform:scale(2.1); opacity:0;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 80px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-120px; right:-160px;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(61,90,69,0.10), transparent 70%);
+    pointer-events:none;
+  }
+  .hero .eyebrow{margin-bottom:26px; max-width:340px;}
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 66px);
+    font-weight:600;
+    line-height:1.06;
+    max-width:920px;
+  }
+  .hero h1 .dim{color:var(--ink-soft); font-weight:400;}
+  .hero-grid{
+    margin-top:56px; display:grid;
+    grid-template-columns:1fr 1fr; gap:60px;
+    padding-top:36px; border-top:1px solid var(--line);
+  }
+  .hero-contact{display:flex; flex-direction:column; gap:10px; font-size:14.5px;}
+  .hero-contact a{color:var(--ink-soft); transition:color .2s;}
+  .hero-contact a:hover{color:var(--moss-deep);}
+  .hero-intro-label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ochre); margin-bottom:10px;}
+  .hero-intro p{color:var(--ink-soft); font-size:15.5px; max-width:460px;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 0;}
+  section.alt{background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .sec-head{margin-bottom:48px;}
+  .sec-head h2{font-size:28px; font-weight:600; margin-top:14px;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  .skill-col{padding:0 28px; border-left:1px solid var(--line);}
+  .skill-col:first-child{border-left:none; padding-left:0;}
+  .skill-col h3{
+    font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:12px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--moss-deep);
+    margin-bottom:18px;
+  }
+  .skill-col ul{list-style:none; display:flex; flex-direction:column; gap:11px;}
+  .skill-col li{font-size:15px; color:var(--ink); position:relative; padding-left:16px;}
+  .skill-col li::before{
+    content:""; position:absolute; left:0; top:9px; width:5px; height:5px;
+    background:var(--ochre); border-radius:1px;
+  }
+  .skill-col li a{
+    color:inherit; border-bottom:1px solid transparent; transition:color .2s, border-color .2s;
+  }
+  .skill-col li a:hover{color:var(--moss-deep); border-bottom-color:var(--moss-deep);}
+  .skill-col li.static{color:var(--ink-soft);}
+
+  /* ---------- WORK ---------- */
+  .work-count{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);}
+  .work-filters{
+    display:none; flex-wrap:wrap; gap:10px; padding:20px 0 28px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-bottom:36px;
+  }
+  .work-filters.show{display:flex;}
+  .filter-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.03em;
+    padding:8px 16px; border:1px solid var(--line); border-radius:999px; cursor:pointer;
+    color:var(--ink-soft); background:transparent; transition:all .2s;
+  }
+  .filter-chip:hover{border-color:var(--moss); color:var(--ink);}
+  .filter-chip.active{background:var(--moss-deep); border-color:var(--moss-deep); color:#fff;}
+  .work-card.hidden{display:none;}
+  .work-card.card-enter{opacity:0; transform:translateY(10px);}
+  .work-card.card-enter-active{opacity:1; transform:translateY(0); transition:opacity .45s ease, transform .45s ease;}
+  .work-card.card-exit{opacity:0; transform:translateY(-6px); transition:opacity .3s ease, transform .3s ease;}
+  .work-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px 40px;}
+  .work-card{background:var(--bg); padding:0; display:block; cursor:pointer;}
+  .work-card:hover h3{color:var(--moss-deep);}
+  .work-media{
+    aspect-ratio:4/3; position:relative; overflow:hidden;
+    background:var(--moss-deep);
+  }
+  .work-media span{
+    position:absolute; left:20px; bottom:18px;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:rgba(255,255,255,0.4);
+    letter-spacing:0.02em;
+  }
+  /* Shows a real image (tileImage in projects-data.js) instead of the flat
+     gradient color block on a project card. Background stays black so a
+     dark-background screenshot or logo blends in cleanly (object-fit:contain
+     means the whole image is visible with no cropping, letterboxed if needed). */
+  .work-media.has-image{background:#000;}
+  .work-media.has-image img{width:100%; height:100%; object-fit:contain; display:block;}
+  .work-card:nth-child(2) .work-media{background:#1c262c;}
+  .work-card:nth-child(3) .work-media{background:#1c2420;}
+  .work-card:nth-child(4) .work-media{background:#28261a;}
+  .work-card:nth-child(5) .work-media{background:#28261a;}
+  .work-card:nth-child(6) .work-media{background:#151f26;}
+  .work-card:nth-child(7) .work-media{background:#2c1c24;}
+  .work-card:nth-child(8) .work-media{background:#2c2015;}
+  .work-media img, .work-media .ph{transition:transform .5s cubic-bezier(.2,.7,.3,1);}
+  .work-card:hover .work-media span{transform:scale(1.03);}
+  .work-body{padding:22px 0 0;}
+  .work-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .work-body h3{font-size:22px; font-weight:600;}
+  .work-year{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);}
+  .tags-plain{font-family:'IBM Plex Mono', monospace; font-size:13px; margin-bottom:12px;}
+  .tag-plain{background:none; border:none; padding:0; color:var(--ochre); cursor:pointer; font:inherit;}
+  .tag-plain:hover{color:var(--moss-deep); text-decoration:underline;}
+  .tag-sep{color:var(--ochre); opacity:0.6;}
+  .work-body p{font-size:14.5px; color:var(--ink-soft); max-width:420px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:300px 1fr; gap:64px;}
+  .portrait{
+    aspect-ratio:3/4; background:linear-gradient(160deg,#DED6C2,#C7BEA6);
+    border:1px solid var(--line); position:relative; overflow:hidden;
+  }
+  .portrait img{width:100%; height:100%; object-fit:cover; display:block;}
+  .about-bio{margin-top:22px;}
+  .about-bio h3{font-size:19px; font-weight:600; margin-bottom:10px;}
+  .about-bio p{font-size:14.5px; color:var(--ink-soft); margin-bottom:16px;}
+  .about-links{display:flex; gap:18px; font-size:13.5px; font-family:'IBM Plex Mono', monospace;}
+  .about-links a{color:var(--moss-deep); border-bottom:1px solid transparent;}
+  .about-links a:hover{border-bottom-color:var(--moss-deep);}
+  .cv-btn{
+    display:inline-flex; align-items:center; gap:8px; margin-top:22px;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.02em;
+    background:var(--ink); color:#fff; padding:11px 20px; border-radius:4px;
+    transition:background .2s, transform .2s;
+  }
+  .cv-btn:hover{background:#000; transform:translateY(-1px);}
+
+  .tabs{display:flex; gap:28px; border-bottom:1px solid var(--line); margin-bottom:30px;}
+  .tab-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-soft); padding-bottom:14px;
+    border:none; background:none; cursor:pointer; position:relative;
+  }
+  .tab-btn.active{color:var(--ink);}
+  .tab-btn.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--moss);
+  }
+  .tab-panel{display:none;}
+  .tab-panel.active{display:flex; flex-direction:column; gap:26px;}
+  .entry{display:grid; grid-template-columns:110px 1fr; gap:20px;}
+  .entry .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ochre); padding-top:2px;}
+  .entry h4{font-size:16px; font-weight:600;}
+  .entry .org{font-size:13.5px; color:var(--ink-soft); margin-bottom:6px;}
+  .entry p{font-size:14px; color:var(--ink-soft); max-width:480px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:80px 0 40px;}
+  .footer-cta{display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:40px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:20px;}
+  .footer-cta h2{font-size:34px; font-weight:600;}
+  .footer-cta a.mail{font-size:15px; color:var(--moss-deep); font-family:'IBM Plex Mono', monospace;}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:24px; font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace;}
+
+  [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1; transform:translateY(0);}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr 1fr; row-gap:32px;}
+    .skill-col:nth-child(3){border-left:none;}
+    .work-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .portrait{max-width:220px;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">Carlotta Freytag</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="badge" href="mailto:charfreytag@gmail.com?subject=Let%27s%20work%20together"><span class="dot"></span> Available for work</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Carlotta Freytag · Berlin, Germany</div>
+    <h1>I'm Carlotta Freytag - a UX &amp; product designer<br><span class="dim">with a focus on</span> AI.</h1>
+
+    <div class="hero-grid">
+      <div class="hero-contact">
+        <a href="https://www.linkedin.com/in/carlotta-freytag-839454204/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:charfreytag@gmail.com">charfreytag@gmail.com</a>
+        <a href="tel:+491738623170">+49 173 8623170</a>
+      </div>
+      <div class="hero-intro">
+        <div class="hero-intro-label">Introduction</div>
+        <p>I design digital products end-to-end — research, structure, interaction, and interface — with a particular interest in where AI fits naturally into that process. I like finding the moments in a product where AI can genuinely help, without losing sight of the person using it. Currently completing an MA in Design, Technology &amp; AI in Berlin, building on a design and media background from the UK and Germany.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="alt" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Skills</div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Design</h3>
+        <ul>
+          <li class="static">UX Design</li>
+          <li class="static">Interaction Design</li>
+          <li class="static">Product Design</li>
+          <li class="static">Service Design</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Emerging Tech</h3>
+        <ul>
+          <li class="static">AR / XR</li>
+          <li class="static">HCI</li>
+          <li class="static">Gamification</li>
+          <li class="static">Prototyping</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Tools &amp; Languages</h3>
+        <ul>
+          <li class="static">Figma · Adobe Suite · Canva</li>
+          <li class="static">Claude Code · Cursor</li>
+          <li class="static">P5.JS · JavaScript · Arduino</li>
+          <li class="static">German · English (Native)</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>AI Focus</h3>
+        <ul>
+          <li class="static">AI Integration</li>
+          <li class="static">Human-AI Interaction</li>
+          <li class="static">Responsible AI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" data-reveal>
+  <div class="wrap">
+    <div class="sec-head" style="display:flex; justify-content:space-between; align-items:baseline;">
+      <div>
+        <div class="eyebrow" id="workEyebrow" style="max-width:200px;">Selected Work</div>
+        <h2 id="workTitle">What I've been building</h2>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <span class="work-count" id="workCount">4 of 8 projects</span>
+        <button class="cv-btn" id="viewAllBtn" style="margin-top:0;" onclick="toggleAllProjects()">View all →</button>
+      </div>
+    </div>
+
+    <div class="work-filters" id="workFilters">
+      <button class="filter-chip active" data-tag="all">All</button>
+    </div>
+
+    <div class="work-grid" id="workGrid">
+      <div class="work-card" data-tags="UX Design,AI Integration,Civic Tech" data-project="mpact-5" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="work-media has-image"><img src="images/mpact5-title.jpg" alt="MPact 5 title screen"></div>
+        <div class="work-body">
+          <div class="work-top"><h3>MPact 5 — Berlin Impact Hub</h3><span class="work-year">2025</span></div>
+          <div class="tags-plain">
+            <a class="tag-plain" href="projects.html?tag=UX%20Design" onclick="event.stopPropagation()">UX Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=AI%20Integration" onclick="event.stopPropagation()">AI Integration</a>
+          </div>
+          <p>An AI-assisted civic platform that turns city needs into personalized, reward-based micro-tasks for citizens.</p>
+        </div>
+      </div>
+      <div class="work-card" data-tags="AR/XR,Interaction Design,Product Design" data-project="pathcompanion" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="work-media has-image"><img src="images/pathcompanion-ar-final.jpg" alt="PathCompanion AR guidance overlay"></div>
+        <div class="work-body">
+          <div class="work-top"><h3>PathCompanion — AR Navigation for Children</h3><span class="work-year">2025</span></div>
+          <div class="tags-plain">
+            <a class="tag-plain" href="projects.html?tag=Interaction%20Design" onclick="event.stopPropagation()">Interaction Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Product%20Design" onclick="event.stopPropagation()">Product Design</a>
+          </div>
+          <p>An AR navigation system on smart glasses that helps children travel independently, safely, and playfully.</p>
+        </div>
+      </div>
+      <div class="work-card" data-tags="Interaction Design,Project Management,Physical-Digital" data-project="career-hub" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="work-media"><span>The Career Hub</span></div>
+        <div class="work-body">
+          <div class="work-top"><h3>The Career Hub</h3><span class="work-year">2025</span></div>
+          <div class="tags-plain">
+            <a class="tag-plain" href="projects.html?tag=Interaction%20Design" onclick="event.stopPropagation()">Interaction Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Project%20Management" onclick="event.stopPropagation()">Project Management</a>
+          </div>
+          <p>A physical touch-desk that bridges student portfolios, market realities, and legal frameworks through a live knowledge graph.</p>
+        </div>
+      </div>
+      <div class="work-card" data-tags="UX Design,AI Integration,Sustainability" data-project="sustainyou" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="work-media"><span>SustainYOU</span></div>
+        <div class="work-body">
+          <div class="work-top"><h3>SustainYOU — Ecowise Living</h3><span class="work-year">2024</span></div>
+          <div class="tags-plain">
+            <a class="tag-plain" href="projects.html?tag=AI%20Integration" onclick="event.stopPropagation()">AI Integration</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Sustainability" onclick="event.stopPropagation()">Sustainability</a>
+          </div>
+          <p>An AI-assisted sustainability campaign that helps people set, track, and achieve personalized environmental goals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="alt" data-reveal>
+  <div class="wrap">
+    <div class="eyebrow" style="max-width:120px; margin-bottom:44px;">About</div>
+    <div class="about-grid">
+      <div>
+        <div class="portrait"><img src="carlotta-freytag-photo.jpg" alt="Carlotta Freytag"></div>
+        <div class="about-bio">
+          <h3>Carlotta Freytag</h3>
+          <p>I'm a UX and product designer. Across my projects, I've developed strengths that cover the full arc of a product — research, structure, interaction, and interface. I design with, through, and for AI: my work starts from what a person actually needs, then looks for the specific places in a system where AI can meaningfully help. I care about the craft of good design first; AI is one of the more interesting tools I get to design with, not the whole story. I'm currently completing an MA in Design, Technology &amp; AI at Media Design Hochschule Berlin, building on a design and media production background from the UK and Germany.</p>
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/carlotta-freytag-839454204/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:charfreytag@gmail.com">Email</a>
+          </div>
+          <a class="cv-btn" href="Carlotta-Freytag-CV.pdf" download>Download CV ↓</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="experience">Experience</button>
+          <button class="tab-btn" data-tab="education">Education</button>
+          <button class="tab-btn" data-tab="certificates">Certificates</button>
+        </div>
+
+        <div class="tab-panel active" id="experience">
+          <div class="entry">
+            <div class="when">2024 — Now</div>
+            <div><h4>Werkstudentin E-Learning und Produktentwicklung</h4><div class="org">NOW GmbH, Berlin, Germany</div>
+              <p>Assisting in the development and implementation of e-learning modules, collaborating with cross-functional teams to design and refine educational products, and conducting research to support continuous improvement of e-learning content.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2023 — 2024</div>
+            <div><h4>Trainee Media Producer</h4><div class="org">]Init AG[, Cologne, Germany</div>
+              <p>Created motion graphics, storyboards, and scripts for videos and social media reels; developed concepts and pitches for movie campaign promotions and TikTok strategies; managed projects, client communication, proposals, and team coordination.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2023</div>
+            <div><h4>Social Media DEMEXCO Intern</h4><div class="org">BVDW, Cologne, Germany</div>
+              <p>Filmed and edited videos for TikTok and Instagram, created and posted Instagram stories covering conference activities, and filmed and photographed speeches, stalls, and demonstrations.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2022 — 2023</div>
+            <div><h4>Social Media Manager</h4><div class="org">UniTV, East Sussex, UK</div>
+              <p>Aided in projects as a producer, editor, and camera operator; organized and ran the team's socials; created templates, graphics, and posts for social content and scheduling.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2021</div>
+            <div><h4>Marketing Strategy Intern</h4><div class="org">Grabarz und Partner, Hamburg, Germany</div>
+              <p>Collected data on consumers, marketplace, and competitors; outlined research findings in detailed presentations to support decision-making; aided in creating effective marketing campaigns using social strategy and analytics.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2021</div>
+            <div><h4>Production Intern</h4><div class="org">"Die Känguru Chroniken 2", Produktion X-Filme, Berlin, Germany</div>
+              <p>Assisted producers with overall production necessities, and proactively and compassionately supported children and extras on set.</p></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="education">
+          <div class="entry">
+            <div class="when">2025 — Now</div>
+            <div><h4>Design – Technology and AI, MA</h4><div class="org">Media Design Hochschule, Berlin, Germany</div>
+              <p>Specialized knowledge in digital technologies, artificial intelligence, and intercultural media, combining a strong theoretical foundation with practical, real-world skills. Serving as student representative for the program.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2020 — 2023</div>
+            <div><h4>Media Production, BA</h4><div class="org">University of Sussex, UK</div>
+              <p>Media theory and practical production skills across narrative, graphic design, interactive media, UX design, sound design, photography, animation, documentary film, and screenwriting, with a focus on interactive design.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2018 — 2020</div>
+            <div><h4>International Baccalaureate Diploma</h4><div class="org">Windermere School, UK</div>
+              <p>A-grade Extended Essay in English on Edwardian Feminism; one of 11 students to receive full core points; House Council member and Photography Club Manager.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2017 — 2018</div>
+            <div><h4>GCSE</h4><div class="org">Rydal Penrhos School, Wales</div>
+              <p>Peer Mentor role.</p></div>
+          </div>
+          <div class="entry">
+            <div class="when">2012 — 2017</div>
+            <div><h4>Internationale Schule Phorms Berlin Süd</h4><div class="org">Berlin, Germany</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2008 — 2012</div>
+            <div><h4>DSNY</h4><div class="org">Deutsche Schule New York, USA</div></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="certificates">
+          <div class="entry">
+            <div class="when">2025</div>
+            <div><h4>AI for Designers</h4><div class="org">Interaction Design Foundation (IxDF)</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2025</div>
+            <div><h4>User Experience: The Beginner's Guide</h4><div class="org">Interaction Design Foundation (IxDF) — Top 10% distinction</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2024</div>
+            <div><h4>KI in Video Workshop</h4><div class="org">]Init AG[</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2023</div>
+            <div><h4>Spirit of Sussex Award, Gold</h4><div class="org">University of Sussex</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2023</div>
+            <div><h4>Learning Design Thinking</h4><div class="org">LinkedIn Learning</div></div>
+          </div>
+          <div class="entry">
+            <div class="when">2018</div>
+            <div><h4>IELTS — 7.5 (C1)</h4><div class="org">International English Language Testing System</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-cta">
+      <h2>Let's work together.</h2>
+      <a class="mail" href="mailto:charfreytag@gmail.com">charfreytag@gmail.com</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Carlotta Freytag</span>
+      <span>Built with care.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalPanel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close project details">✕</button>
+    <div class="modal-gallery" id="modalGallery"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="projects-data.js"></script>
+<script src="project-modal.js"></script>
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el));
+
+  // "All" filter chip is static markup, so bind it once up front.
+  document.querySelector('#workFilters [data-tag="all"]').addEventListener('click', () => applyWorkFilter('all'));
+
+  // "View all" expand-in-place: reveals the remaining projects inside the
+  // Selected Work grid instead of navigating to projects.html.
+  let allProjectsExpanded = false;
+  let activeWorkFilter = 'all';
+  const featuredProjectIds = ['mpact-5', 'pathcompanion', 'career-hub', 'sustainyou'];
+
+  function projectCardHTML(p) {
+    const tagsHtml = p.tags.slice(0, 2).map((t, i, arr) => {
+      const href = 'projects.html?tag=' + encodeURIComponent(t);
+      const link = '<a class="tag-plain" href="' + href + '" onclick="event.stopPropagation()">' + t + '</a>';
+      return i < arr.length - 1 ? link + '<span class="tag-sep"> · </span>' : link;
+    }).join('');
+    const mediaHtml = p.tileImage
+      ? '<div class="work-media has-image"><img src="' + p.tileImage + '" alt="' + p.title + ' logo"></div>'
+      : '<div class="work-media"><span>' + p.title + '</span></div>';
+    return (
+      '<div class="work-card card-enter" data-tags="' + p.tags.join(',') + '" data-project="' + p.id + '" tabindex="0" role="button" aria-haspopup="dialog">' +
+        mediaHtml +
+        '<div class="work-body">' +
+          '<div class="work-top"><h3>' + p.title + '</h3><span class="work-year">' + p.date + '</span></div>' +
+          '<div class="tags-plain">' + tagsHtml + '</div>' +
+          '<p>' + p.brief + '</p>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function buildWorkFilters() {
+    const filtersEl = document.getElementById('workFilters');
+    filtersEl.querySelectorAll('.filter-chip:not([data-tag="all"])').forEach(c => c.remove());
+    const allTags = [];
+    PROJECTS.forEach(p => p.tags.forEach(t => { if (!allTags.includes(t)) allTags.push(t); }));
+    allTags.forEach(tag => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-chip';
+      btn.dataset.tag = tag;
+      btn.textContent = tag;
+      btn.addEventListener('click', () => applyWorkFilter(tag));
+      filtersEl.appendChild(btn);
+    });
+  }
+
+  function applyWorkFilter(tag) {
+    activeWorkFilter = tag;
+    document.querySelectorAll('#workFilters .filter-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.tag === tag);
+    });
+    document.querySelectorAll('#workGrid .work-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(',');
+      const show = tag === 'all' || tags.includes(tag);
+      card.classList.toggle('hidden', !show);
+    });
+  }
+
+  function toggleAllProjects() {
+    const grid = document.getElementById('workGrid');
+    const btn = document.getElementById('viewAllBtn');
+    const count = document.getElementById('workCount');
+    const title = document.getElementById('workTitle');
+    const eyebrow = document.getElementById('workEyebrow');
+    const filtersEl = document.getElementById('workFilters');
+
+    // Guard: if projects-data.js didn't load (e.g. this file is being viewed
+    // on its own, without its sibling files alongside it), show a quiet
+    // inline message instead of navigating anywhere or throwing an error.
+    if (typeof PROJECTS === 'undefined') {
+      count.textContent = 'Project data unavailable in this preview';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'default';
+      return;
+    }
+
+    if (!allProjectsExpanded) {
+      const remaining = PROJECTS.filter(p => !featuredProjectIds.includes(p.id));
+      grid.insertAdjacentHTML('beforeend', remaining.map(projectCardHTML).join(''));
+
+      // Fade the new cards in on the next frame so the opacity/transform
+      // transition actually has something to animate from.
+      const newCards = Array.from(grid.querySelectorAll('.work-card.card-enter'));
+      requestAnimationFrame(() => {
+        newCards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('card-enter-active'), i * 40);
+        });
+      });
+
+      eyebrow.textContent = 'My Work';
+      title.textContent = "Everything I've worked on";
+      count.textContent = '8 of 8 projects';
+      btn.textContent = '← Back to Selected Work';
+      buildWorkFilters();
+      filtersEl.classList.add('show');
+      allProjectsExpanded = true;
+    } else {
+      applyWorkFilter('all');
+      filtersEl.classList.remove('show');
+
+      const cards = Array.from(grid.querySelectorAll('.work-card'));
+      const toRemove = cards.slice(4);
+      toRemove.forEach(card => card.classList.add('card-exit'));
+      setTimeout(() => toRemove.forEach(card => card.remove()), 300);
+
+      eyebrow.textContent = 'Selected Work';
+      title.textContent = "What I've been building";
+      count.textContent = '4 of 8 projects';
+      btn.textContent = 'View all →';
+      allProjectsExpanded = false;
+    }
+  }
+</script>
+
+</body>
+</html>
