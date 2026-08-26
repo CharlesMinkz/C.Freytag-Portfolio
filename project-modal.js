@@ -117,7 +117,7 @@
         <div class="modal-date">${p.date}</div>
       </div>
       <p class="modal-brief">${p.brief}</p>
-      <a class="modal-live" href="${p.liveUrl}" target="_blank" rel="noopener">View live ↗</a>
+      ${p.liveUrl && p.liveUrl !== '#' ? `<a class="modal-live" href="${p.liveUrl}" target="_blank" rel="noopener">View live ↗</a>` : ''}
       <div class="modal-divider"></div>
       <div class="modal-tabs">
         <div class="tabs">${tabBtns}</div>

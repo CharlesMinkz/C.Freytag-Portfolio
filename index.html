@@ -350,7 +350,7 @@
       <div class="work-card" data-tags="UX Design,AI Integration,Civic Tech" data-project="mpact-5" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="work-media has-image"><img src="images/mpact5-title.jpg" alt="MPact 5 title screen"></div>
         <div class="work-body">
-          <div class="work-top"><h3>MPact 5 — Berlin Impact Hub</h3><span class="work-year">2025</span></div>
+          <div class="work-top"><h3>MPact 5 — Berlin Impact Hub</h3><span class="work-year">2026</span></div>
           <div class="tags-plain">
             <a class="tag-plain" href="projects.html?tag=UX%20Design" onclick="event.stopPropagation()">UX Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=AI%20Integration" onclick="event.stopPropagation()">AI Integration</a>
           </div>
@@ -368,23 +368,23 @@
         </div>
       </div>
       <div class="work-card" data-tags="Interaction Design,Project Management,Physical-Digital" data-project="career-hub" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="work-media"><span>The Career Hub</span></div>
+        <div class="work-media has-image"><img src="images/career-hub-desk-hero.jpg" alt="The Career Hub touch-desk in use in a university lobby"></div>
         <div class="work-body">
-          <div class="work-top"><h3>The Career Hub</h3><span class="work-year">2025</span></div>
+          <div class="work-top"><h3>The Career Hub — An Interactive Workspace for Career Navigation</h3><span class="work-year">2026</span></div>
           <div class="tags-plain">
             <a class="tag-plain" href="projects.html?tag=Interaction%20Design" onclick="event.stopPropagation()">Interaction Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Project%20Management" onclick="event.stopPropagation()">Project Management</a>
           </div>
-          <p>A physical touch-desk that bridges student portfolios, market realities, and legal frameworks through a live knowledge graph.</p>
+          <p>A physical touch-desk that turns career guidance into a live, navigable knowledge graph — bridging student portfolios, local market realities, and legal frameworks for international design students in Berlin.</p>
         </div>
       </div>
-      <div class="work-card" data-tags="UX Design,AI Integration,Sustainability" data-project="sustainyou" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="work-media"><span>SustainYOU</span></div>
+      <div class="work-card" data-tags="Product Design,Project Management,UX Research" data-project="uni-agency" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="work-media has-image"><img src="images/uni-agency-final-talent-passport.jpg" alt="Student Talent Passport with skills, languages, and skills to develop"></div>
         <div class="work-body">
-          <div class="work-top"><h3>SustainYOU — Ecowise Living</h3><span class="work-year">2024</span></div>
+          <div class="work-top"><h3>The Uni Agency — Connecting Student Talent to Industry</h3><span class="work-year">2026</span></div>
           <div class="tags-plain">
-            <a class="tag-plain" href="projects.html?tag=AI%20Integration" onclick="event.stopPropagation()">AI Integration</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Sustainability" onclick="event.stopPropagation()">Sustainability</a>
+            <a class="tag-plain" href="projects.html?tag=Product%20Design" onclick="event.stopPropagation()">Product Design</a><span class="tag-sep"> · </span><a class="tag-plain" href="projects.html?tag=Project%20Management" onclick="event.stopPropagation()">Project Management</a>
           </div>
-          <p>An AI-assisted sustainability campaign that helps people set, track, and achieve personalized environmental goals.</p>
+          <p>A university-run creative talent agency that packages, promotes, and connects student work to industry — turning coursework into a personal brand, portfolio, and real client experience.</p>
         </div>
       </div>
     </div>
@@ -559,7 +559,7 @@
   // Selected Work grid instead of navigating to projects.html.
   let allProjectsExpanded = false;
   let activeWorkFilter = 'all';
-  const featuredProjectIds = ['mpact-5', 'pathcompanion', 'career-hub', 'sustainyou'];
+  const featuredProjectIds = ['mpact-5', 'pathcompanion', 'career-hub', 'uni-agency'];
 
   function projectCardHTML(p) {
     const tagsHtml = p.tags.slice(0, 2).map((t, i, arr) => {
@@ -643,7 +643,7 @@
 
       eyebrow.textContent = 'My Work';
       title.textContent = "Everything I've worked on";
-      count.textContent = '8 of 8 projects';
+      count.textContent = PROJECTS.length + ' of ' + PROJECTS.length + ' projects';
       btn.textContent = '← Back to Selected Work';
       buildWorkFilters();
       filtersEl.classList.add('show');
@@ -659,7 +659,7 @@
 
       eyebrow.textContent = 'Selected Work';
       title.textContent = "What I've been building";
-      count.textContent = '4 of 8 projects';
+      count.textContent = featuredProjectIds.length + ' of ' + PROJECTS.length + ' projects';
       btn.textContent = 'View all →';
       allProjectsExpanded = false;
     }

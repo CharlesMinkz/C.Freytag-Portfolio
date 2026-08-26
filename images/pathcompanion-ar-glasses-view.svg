@@ -1,0 +1,128 @@
+<svg viewBox="0 0 700 933" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#232c3d"/>
+      <stop offset="55%" stop-color="#161d29"/>
+      <stop offset="100%" stop-color="#0b0e15"/>
+    </linearGradient>
+    <linearGradient id="stepLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a5568"/>
+      <stop offset="100%" stop-color="#333c4a"/>
+    </linearGradient>
+    <linearGradient id="stepEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5b6577"/>
+      <stop offset="100%" stop-color="#3f4a5a"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="46%" r="72%">
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3fb6ad"/>
+      <stop offset="100%" stop-color="#2c8f88"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background scene: a simplified, original illustration of an indoor
+       transit space with a staircase — no real photography, no real signage,
+       no depiction of an actual station. -->
+  <rect x="0" y="0" width="700" height="933" fill="url(#skyBg)"/>
+
+  <!-- Ceiling / upper structure suggestion -->
+  <rect x="0" y="0" width="700" height="120" fill="#1a2130"/>
+  <g stroke="#2a3444" stroke-width="3" opacity="0.6">
+    <line x1="0" y1="40" x2="700" y2="40"/>
+    <line x1="0" y1="75" x2="700" y2="75"/>
+  </g>
+
+  <!-- Perspective staircase ascending toward the back -->
+  <g>
+    <polygon points="150,933 550,933 480,700 220,700" fill="url(#stepLight)"/>
+    <polygon points="220,700 480,700 440,560 260,560" fill="url(#stepEdge)"/>
+    <polygon points="260,560 440,560 415,460 285,460" fill="url(#stepLight)"/>
+    <polygon points="285,460 415,460 398,390 302,390" fill="url(#stepEdge)"/>
+    <polygon points="302,390 398,390 388,340 312,340" fill="url(#stepLight)"/>
+    <!-- step highlight lines -->
+    <g stroke="#6b7686" stroke-width="2" opacity="0.5">
+      <line x1="220" y1="700" x2="480" y2="700"/>
+      <line x1="260" y1="560" x2="440" y2="560"/>
+      <line x1="285" y1="460" x2="415" y2="460"/>
+      <line x1="302" y1="390" x2="398" y2="390"/>
+    </g>
+  </g>
+
+  <!-- Side walls, simplified -->
+  <polygon points="0,933 150,933 220,700 0,650" fill="#20293a"/>
+  <polygon points="700,933 550,933 480,700 700,650" fill="#181f2c"/>
+
+  <!-- Generic blank signage rectangle (no real branding/text) -->
+  <rect x="500" y="150" width="150" height="70" rx="6" fill="#26314480" stroke="#3a4658" stroke-width="2"/>
+  <rect x="514" y="168" width="60" height="8" rx="4" fill="#4a5568"/>
+  <rect x="514" y="184" width="90" height="8" rx="4" fill="#3a4658"/>
+
+  <!-- Two simple, generic silhouette figures (no identifiable features) -->
+  <g fill="#0e1219" opacity="0.85">
+    <ellipse cx="120" cy="590" rx="18" ry="20"/>
+    <path d="M96,610 Q120,595 144,610 L150,720 L128,720 L120,650 L112,720 L90,720 Z"/>
+  </g>
+  <g fill="#151b26" opacity="0.8">
+    <ellipse cx="600" cy="560" rx="16" ry="18"/>
+    <path d="M580,578 Q600,565 620,578 L625,680 L606,680 L600,618 L594,680 L575,680 Z"/>
+  </g>
+
+  <!-- Lens vignette, suggesting a view through AR glasses -->
+  <rect x="0" y="0" width="700" height="933" fill="url(#vignette)"/>
+  <rect x="14" y="14" width="672" height="905" rx="46" fill="none" stroke="#000000" stroke-opacity="0.5" stroke-width="10"/>
+
+  <!-- ============== AR OVERLAY UI (PathCompanion) ============== -->
+
+  <!-- Top instruction card -->
+  <rect x="60" y="70" width="580" height="108" rx="16" fill="#0b0e15" fill-opacity="0.86" stroke="#1c2534" stroke-width="1.5"/>
+  <rect x="60" y="70" width="7" height="108" rx="3.5" fill="url(#teal)"/>
+  <text x="92" y="115" font-family="Arial, sans-serif" font-weight="700" font-size="30" fill="#ffffff" letter-spacing="0.5">ASCEND THE STAIRS</text>
+  <text x="92" y="145" font-family="Arial, sans-serif" font-size="17" fill="#9aa4b5">Platform 2 · 40m ahead</text>
+
+  <!-- Progress bar -->
+  <rect x="92" y="158" width="500" height="8" rx="4" fill="#1c2534"/>
+  <rect x="92" y="158" width="300" height="8" rx="4" fill="url(#teal)"/>
+
+  <!-- Bottom-left: star progress badge -->
+  <g>
+    <rect x="60" y="800" width="120" height="52" rx="26" fill="#0b0e15" fill-opacity="0.86" stroke="#1c2534" stroke-width="1.5"/>
+    <g transform="translate(78,814)">
+      <path d="M12 0 L15 8 L23 8 L16.5 13 L19 21 L12 16 L5 21 L7.5 13 L1 8 L9 8 Z" fill="#ffc94a"/>
+    </g>
+    <g transform="translate(102,814)">
+      <path d="M12 0 L15 8 L23 8 L16.5 13 L19 21 L12 16 L5 21 L7.5 13 L1 8 L9 8 Z" fill="#ffc94a"/>
+    </g>
+    <text x="150" y="833" font-family="Arial, sans-serif" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">2/3</text>
+  </g>
+
+  <!-- Bottom-center: rocket compass -->
+  <g transform="translate(350,826)">
+    <circle r="46" fill="#0b0e15" fill-opacity="0.86" stroke="#2c8f88" stroke-width="2.5"/>
+    <g transform="rotate(-20)">
+      <path d="M0,-28 C10,-14 10,6 5,20 L-5,20 C-10,6 -10,-14 0,-28 Z" fill="#ffffff"/>
+      <path d="M-5,16 L-16,28 L-5,24 Z" fill="#ff8a3d"/>
+      <path d="M5,16 L16,28 L5,24 Z" fill="#ff8a3d"/>
+      <circle cx="0" cy="-8" r="4" fill="#2c8f88"/>
+    </g>
+  </g>
+
+  <!-- Bottom-right: Pax companion badge -->
+  <g transform="translate(520,826)">
+    <circle r="34" fill="#0b0e15" fill-opacity="0.86" stroke="#1c2534" stroke-width="1.5"/>
+    <g transform="translate(-18,-16)">
+      <ellipse cx="18" cy="20" rx="16" ry="14" fill="#e8c087"/>
+      <ellipse cx="8" cy="10" rx="6" ry="9" fill="#e8c087" transform="rotate(-20 8 10)"/>
+      <ellipse cx="28" cy="10" rx="6" ry="9" fill="#e8c087" transform="rotate(20 28 10)"/>
+      <circle cx="13" cy="18" r="1.6" fill="#2a2018"/>
+      <circle cx="23" cy="18" r="1.6" fill="#2a2018"/>
+      <ellipse cx="18" cy="24" rx="3" ry="2" fill="#2a2018"/>
+    </g>
+  </g>
+
+  <!-- Small caption strip at the very bottom, identifying this as a concept mockup -->
+  <rect x="0" y="900" width="700" height="33" fill="#05070b"/>
+  <text x="350" y="922" font-family="Arial, sans-serif" font-size="14" fill="#5a6474" text-anchor="middle">Concept visualization — PathCompanion AR overlay, generic glasses view</text>
+</svg>

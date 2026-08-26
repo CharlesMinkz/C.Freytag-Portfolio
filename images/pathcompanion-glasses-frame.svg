@@ -1,0 +1,65 @@
+<svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="lensLeftClip">
+      <rect x="140" y="90" width="330" height="260" rx="42"/>
+    </clipPath>
+    <clipPath id="lensRightClip">
+      <rect x="530" y="90" width="330" height="260" rx="42"/>
+    </clipPath>
+
+    <linearGradient id="sceneSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a3346"/>
+      <stop offset="60%" stop-color="#1a2130"/>
+      <stop offset="100%" stop-color="#11151f"/>
+    </linearGradient>
+    <linearGradient id="stepFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#525d70"/>
+      <stop offset="100%" stop-color="#38414f"/>
+    </linearGradient>
+    <linearGradient id="stepFaceAlt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#616c80"/>
+      <stop offset="100%" stop-color="#454e5e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Transparent canvas: no background rect, so this drops onto anything -->
+
+  <!-- The scene is drawn ONCE, then shown through both lens clip-paths at
+       the same position — so it reads as one continuous real-world view
+       seen through two lenses, not two separate duplicated images. -->
+  <g id="scene">
+    <rect x="120" y="60" width="760" height="330" fill="url(#sceneSky)"/>
+    <polygon points="300,460 700,460 640,380 360,380" fill="url(#stepFace)"/>
+    <polygon points="360,380 640,380 600,320 400,320" fill="url(#stepFaceAlt)"/>
+    <polygon points="400,320 600,320 570,270 430,270" fill="url(#stepFace)"/>
+    <polygon points="430,270 570,270 545,230 455,230" fill="url(#stepFaceAlt)"/>
+    <polygon points="455,230 545,230 530,198 470,198" fill="url(#stepFace)"/>
+    <g stroke="#6d7889" stroke-width="2.5" opacity="0.55">
+      <line x1="360" y1="380" x2="640" y2="380"/>
+      <line x1="400" y1="320" x2="600" y2="320"/>
+      <line x1="430" y1="270" x2="570" y2="270"/>
+      <line x1="455" y1="230" x2="545" y2="230"/>
+    </g>
+    <!-- side walls for depth -->
+    <polygon points="120,390 300,460 300,390 120,340" fill="#161c28"/>
+    <polygon points="880,390 700,460 700,390 880,340" fill="#12161f"/>
+  </g>
+
+  <use href="#scene" clip-path="url(#lensLeftClip)"/>
+  <use href="#scene" clip-path="url(#lensRightClip)"/>
+
+  <!-- Very faint lens tint so the lens reads as glass rather than a flat cutout -->
+  <rect x="140" y="90" width="330" height="260" rx="42" fill="#3fb6ad" opacity="0.04"/>
+  <rect x="530" y="90" width="330" height="260" rx="42" fill="#3fb6ad" opacity="0.04"/>
+
+  <!-- ============== GLASSES FRAME ONLY ============== -->
+  <g fill="none" stroke="#0d0f13" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="140" y="90" width="330" height="260" rx="42"/>
+    <rect x="530" y="90" width="330" height="260" rx="42"/>
+    <!-- bridge -->
+    <path d="M470,205 Q500,190 530,205"/>
+    <!-- temples -->
+    <path d="M140,130 L40,100"/>
+    <path d="M860,130 L960,100"/>
+  </g>
+</svg>
